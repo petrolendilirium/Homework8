@@ -1,0 +1,81 @@
+using System;
+
+namespace Vtora
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Input the size of the array n: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("Input the size of the array m: ");
+            int m = int.Parse(Console.ReadLine());
+            int[,] arr = new int[n, m];
+            int[,] secondArr = new int[n, m]; 
+            Random rd = new Random();
+            bool right = true;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    arr[i, j] = rd.Next(-999, 999);
+                    Console.Write("{0} ", arr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    secondArr[i, j] = Metod(arr, n, m, i, j);
+                    if ((i + j) % 2 == 0 && secondArr[i, j] != 0)
+                    {
+                        right = false;
+                        Console.WriteLine("The metod is wrong!");
+                        break;
+                    }
+                    else
+                    {
+                        Console.Write("{0} ", secondArr[i, j]);
+                    }
+                }
+                Console.WriteLine();
+            }
+
+            if (right == true)
+            {
+                Console.WriteLine("\nThe metod is right");
+            }
+            Console.ReadLine();
+        }
+
+        static int Metod(int[,] arr1, int n1, int m1, int i1, int j1)
+        {
+            int[,] array = new int[n1, m1];
+            int z = 0;
+            int k = 0;
+            for (int i = i1; i < i1+1; i++)
+            {
+                for (int j = j1; j < j1+1; j++)
+                {
+                    if ((i + j) % 2 == 0)
+                    {
+                        array[i, j] = 0;
+                    }
+                    else
+                    {
+                        array[i, j] = arr1[i, j];
+                    }
+                    z = i;
+                    k = j;                    
+                }                
+            }
+
+            return array[z, k];
+
+        }
+    }
+}
