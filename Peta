@@ -1,0 +1,81 @@
+using System;
+
+namespace Peta
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Input the size of the array n: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("Input the number k: ");
+            int kBeggining = int.Parse(Console.ReadLine());
+            Console.Write("Input the number l: ");
+            int lEnd = int.Parse(Console.ReadLine());
+            Console.Write("Input the number q: ");
+            int qSpecilal = int.Parse(Console.ReadLine());
+            int[,] arr = new int[n, n];
+            Random rd = new Random();
+            int metodCnt = 0;
+            int cnt = 0;
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    arr[i, j] = rd.Next(-9, 9);
+                    Console.Write("{0} ", arr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            int[,] secondArr = new int[n, n]; 
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr[i, j] >= kBeggining && arr[i, j] <= lEnd)
+                    {
+                        secondArr[i, j] = qSpecilal;
+                        cnt++;
+                    }
+                    else
+                    {
+                        secondArr[i, j] = arr[i, j];
+                    }
+                    Console.Write("{0} ", secondArr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            int result = Metod(arr, n, kBeggining, lEnd, qSpecilal, metodCnt);
+            if (cnt == result)
+            {
+                Console.WriteLine("\nThe metod is right");
+            }
+            else
+            {
+                Console.WriteLine("\nThe metod is wrong");
+            }
+            
+            Console.ReadLine();
+        }
+
+        static int Metod(int[,] arr1, int n1, int k1, int l1, int q1, int cnt1)
+        {
+            for (int i = 0; i < n1; i++)
+            {
+                for (int j = 0; j < n1; j++)
+                {
+                    if (arr1 [i,j] >= k1 && arr1[i, j] <= l1)
+                    {
+                        arr1[i, j] = q1;
+                        cnt1++;
+                    }
+                }
+            }
+            return cnt1;
+        }
+    }
+}
