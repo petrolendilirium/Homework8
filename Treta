@@ -1,0 +1,135 @@
+using System;
+
+namespace Treta
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Input the size of the array n: ");
+            int n = int.Parse(Console.ReadLine());
+            int[,] arr = new int[n, n];
+            Random rd = new Random();
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    arr[i, j] = rd.Next(-999, 999);
+                    Console.Write("{0} ", arr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            int type = 0;
+            int row = Metod (arr, n, type);
+            type++;
+            int coll = Metod (arr, n, type);
+
+            int maxRow = 0;
+            int maxColl = 0;
+            int cntRow = 0;
+            int cntColl = 0;
+            int maxCntRow = 0;
+            int maxCntColl = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr[i, j] < 0)
+                    {
+                        cntRow++;
+                        if (cntRow > maxCntRow)
+                        {
+                            maxCntRow = cntRow;
+                            maxRow = i;
+                        }
+                    }
+                }
+                cntRow = 0;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr[j, i] < 0)
+                    {
+                        cntColl++;
+                        if (cntColl > maxCntColl)
+                        {
+                            maxCntColl = cntColl;
+                            maxColl = i;
+                        }
+                    }
+                }
+                cntColl = 0;
+            }
+
+            if (maxColl == coll && maxRow == row)
+            {
+                Console.WriteLine("The row with the most negative numbers is: {0}" +
+                    "\nThe collumn with the most negative numbers is: {1}" +
+                    "\nThe metod is right!", row, coll);
+            }
+            else
+            {
+                Console.WriteLine("The metod is wrong!");
+            }
+            
+            Console.ReadLine();
+        }
+
+        static int Metod(int[,] arr1, int n, int type) 
+        {
+            int maxRow = 0;
+            int maxColl = 0;
+            int cntRow = 0;
+            int cntColl = 0;
+            int maxCntRow = 0;
+            int maxCntColl = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr1 [i, j] < 0)
+                    {
+                        cntRow++;
+                        if (cntRow > maxCntRow)
+                        {
+                            maxCntRow = cntRow;
+                            maxRow = i;
+                        }
+                    }
+                }
+                cntRow = 0;
+            }
+
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr1[j, i] < 0)
+                    {
+                        cntColl++;
+                        if (cntColl > maxCntColl)
+                        {
+                            maxCntColl = cntColl;
+                            maxColl = i;
+                        }
+                    }
+                }
+                cntColl = 0;
+            }
+
+            if (type == 0)
+            {
+                return maxRow;
+            }
+            else
+            {
+                return maxColl;
+            }
+        }
+    }
+}
