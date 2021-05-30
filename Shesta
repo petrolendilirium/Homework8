@@ -1,0 +1,128 @@
+using System;
+
+namespace Shesta
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Input the size of the array m: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("Input the size of the array n: ");
+            int m = int.Parse(Console.ReadLine());
+            int[,] arr = new int[m, n];
+            Random rd = new Random();
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    arr[i, j] = rd.Next(-9, 9);
+                    Console.Write("{0} ", arr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            int positiveCnt = 0;
+            int negativeCnt = 0;
+            int zeroCnt = 0;
+            int positiveSum = 0;
+            int negativeSum = 0;
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr[i, j] > 0)
+                    {
+                        positiveSum += arr[i, j];
+                        positiveCnt++;
+                    }
+                    else if (arr[i, j] < 0)
+                    {
+                        negativeSum += arr[i, j];
+                        negativeCnt++;
+                    }
+                    else
+                    {
+                        zeroCnt++;
+                    }
+                }
+            }
+            int positiveArit = positiveSum / positiveCnt;
+            int negativeArit = negativeSum / negativeCnt;
+
+            int type = 0;
+            int positiveAritResult = Metod(arr, m, n, type);
+            type++;
+            int negativeAritResult = Metod(arr, m, n, type);
+            type++;
+            int zeroCntResult = Metod(arr, m, n, type);
+
+            if (positiveArit == positiveAritResult && negativeArit == negativeAritResult && zeroCnt == zeroCntResult)
+            {
+                
+                Console.WriteLine("\nThe positive arithmetic mean is: {0}" +
+                    "\nThe negative arithmetic mean is: {1}" +
+                    "\n The count of zeros is {2}" +
+                    "\n\nThe metod is right", positiveArit, negativeArit, zeroCnt);
+            }
+            else
+            {
+                Console.WriteLine("\nThe positive arithmetic mean is: {0}" +
+                    "\nThe negative arithmetic mean is: {1}" +
+                    "\n The count of zeros is: {2}" +
+                    "\n\nThe metod is wrong", positiveArit, negativeArit, zeroCnt);
+            }
+            
+            Console.ReadLine();
+        }
+
+        static int Metod(int[,] arr1, int m1, int n1, int type)
+        {
+            int positiveCnt = 0;
+            int negativeCnt = 0;
+            int zeroCnt = 0;
+            int positiveSum = 0;
+            int negativeSum = 0;
+
+            for (int i = 0; i < m1; i++)
+            {
+                for (int j = 0; j < n1; j++)
+                {
+                    if (arr1[i, j] > 0)
+                    {
+                        positiveSum += arr1[i, j];
+                        positiveCnt++;
+                    }
+                    else if (arr1[i, j] < 0)
+                    {
+                        negativeSum += arr1[i, j];
+                        negativeCnt++;
+                    }
+                    else
+                    {
+                        zeroCnt++;
+                    }
+                }
+            }
+
+            int positiveArit = positiveSum / positiveCnt;
+            int negativeArit = negativeSum / negativeCnt;
+
+            if (type == 0)
+            {
+                return positiveArit;
+            }
+            else if(type == 1)
+            {
+                return negativeArit;
+            }
+            else
+            {
+                return zeroCnt;
+            }
+
+        }
+    }
+}
