@@ -1,0 +1,117 @@
+using System;
+
+namespace Sedma
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Input the size of the array m: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("Input the size of the array n: ");
+            int m = int.Parse(Console.ReadLine());
+            int[,] firstArr = new int[m, n];
+            int[,] secondArr = new int[m, n];
+            Random rd = new Random();
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    firstArr[i, j] = rd.Next(-9, 9);
+                    Console.Write("{0} ", firstArr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    secondArr[i, j] = rd.Next(-9, 9);
+                    Console.Write("{0} ", secondArr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            int min = 10;
+            int cnt = 0;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    for (int l = 0; l < m; l++)
+                    {
+                        for (int k = 0; k < n; k++)
+                        {
+                            if (firstArr[i, j] == secondArr[l, k])
+                            {
+                                cnt++;
+                            }
+                        }
+                    }
+                    if (cnt == 0 && firstArr[i, j] < min)
+                    {
+                        min = firstArr[i, j];
+                    }
+                    cnt = 0;
+                }
+            }
+
+            int result = Metod(firstArr, secondArr, m, n);
+            if (result == min)
+            {
+                if (min == 10)
+                {
+                    Console.WriteLine("\nThe is no minimum number!\nThe metod is right");
+                }
+                else
+                {
+                    Console.WriteLine("\nThe minimum number is: {0}\nThe metod is right", min);
+                }
+            }
+            else
+            {
+                if (min == 10)
+                {
+                    Console.WriteLine("\nThe is no minimum number!\nThe metod is wrong");
+                }
+                else
+                {
+                    Console.WriteLine("\nThe minimum number is: {0}\nThe metod is wrong", min);
+                }
+            }
+            
+            Console.ReadLine();
+        }
+
+        static int Metod(int[,] firstArrM, int[,] secondArrM, int m1, int n1)
+        {
+            int cnt = 0;
+            int min = 10;
+            for (int i = 0; i < m1; i++)
+            {
+                for (int j = 0; j < n1; j++)
+                {
+                    for (int l = 0; l < m1; l++)
+                    {
+                        for (int k = 0; k < n1; k++)
+                        {
+                            if (firstArrM[i, j] == secondArrM[l, k])
+                            {
+                                cnt++;
+                            }
+                        }
+                    }
+                    if (cnt == 0 && firstArrM[i, j] < min)
+                    {
+                        min = firstArrM[i, j];
+                    }
+                    cnt = 0;
+                }
+            }
+            return min;
+        }
+    }
+}
