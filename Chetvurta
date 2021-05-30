@@ -1,0 +1,130 @@
+using System;
+
+namespace Chetvurta
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Write("Input the size of the array m: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.Write("Input the size of the array n: ");
+            int m = int.Parse(Console.ReadLine());
+            int[,] arr = new int[m, n];
+            int[,] secondArr = new int[m, n];
+            int[,] theMetodArr = new int[m, n];
+            
+            Random rd = new Random();
+            bool right = true;
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    arr[i, j] = rd.Next(-999, 999);
+                    Console.Write("{0} ", arr[i, j]);
+                }
+                Console.WriteLine();
+            }
+
+            int min = 1000;
+            int minRow = 0;
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (arr[i, j] < min)
+                    {
+                        min = arr[i, j];
+                        minRow = i;
+                    }
+                }
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i != minRow && j != minRow)
+                    {
+                        secondArr[i, j] = arr[i, j];                        
+                    }
+                }
+            }
+
+            Console.WriteLine();
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i != minRow && j != minRow)
+                    {
+                        theMetodArr[i, j] = Metod(arr, m, n, i, j);
+                        if (theMetodArr[i, j] == secondArr[i, j])
+                        {
+                            Console.Write("{0} ", secondArr[i, j]);
+                        }
+                        else
+                        {
+                            right = false;
+                        }                        
+                    }                
+                }
+                if (i != minRow)
+                {
+                    Console.WriteLine();
+                }                
+            }
+
+            if (right == true)
+            {
+                Console.WriteLine("\nThe metod is right");
+            }
+            
+            Console.ReadLine();
+        }
+
+        static int Metod(int[,] arr1, int m1, int n1, int i1, int j1)
+        {
+            int min = 1000;
+            int minRow = 0;
+            for (int i = 0; i < m1; i++)
+            {
+                for (int j = 0; j < n1; j++)
+                {
+                    if (arr1[i, j] < min)
+                    {
+                        min = arr1[i, j];
+                        minRow = i;
+                    }                    
+                }
+            }
+
+            int[,] withoutMin = new int[m1 - 1, n1 - 1];
+            for (int i = 0; i < m1; i++)
+            {
+                for (int j = 0; j < n1; j++)
+                {
+                    if (i != minRow && j != minRow)
+                    {
+                        withoutMin = arr1;
+                    }
+                }
+            }
+
+            int z = 0;
+            int k = 0;
+            for (int i = i1; i < i1 + 1; i++)
+            {
+                for (int j = j1; j < j1 + 1; j++)
+                {
+                    z = i;
+                    k = j;
+                }
+            }
+
+            return withoutMin[z, k];
+
+        }
+    }
+}
